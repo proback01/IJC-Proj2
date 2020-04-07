@@ -11,6 +11,7 @@
 
 int processArguments(int argc, char** argv, int* linesNum, char** filename, int* mode);
 int runTail(int linesNum, char* filename);
+int runToEndTail(int startFrom, char *filename);
 
 int main(int argc, char** argv) {
     int mode = DEFAULT_MODE;
@@ -21,10 +22,11 @@ int main(int argc, char** argv) {
     if(processArguments(argc, argv, &linesNum, &filename, &mode) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
-    if(mode == 1) {
-        printf("To end mode\n");
-    }
-    runTail(linesNum, filename);
+
+    if(mode == DEFAULT_MODE)
+        runTail(linesNum, filename);
+    else if(mode == TO_END_MODE)
+        runToEndTail(linesNum, filename);
 
     return EXIT_SUCCESS;
 }
@@ -82,7 +84,7 @@ int runTail(int linesNum, char* filename) {
     int charIndex= 0;
     int c;
     while((c = getc(file)) != EOF) {
-        lines[(lineIndex * MAX_LINE_LEN) + charIndex] = (char)c;
+        lines[(lineIndex * MAX_LINE_LEN) + charIndex] = (char)c; // Storing current character
 
         if(c == '\n' || charIndex == MAX_LINE_LEN - 2) { // Newline character or overflow
             if(charIndex == MAX_LINE_LEN - 2 && c != '\n') { // Overflow
@@ -101,7 +103,7 @@ int runTail(int linesNum, char* filename) {
             if(lineIndex >= linesNum)
                 lineIndex = 0;
         }
-        else {
+        else { // Normal character
             charIndex++;
         }
     }
@@ -109,7 +111,7 @@ int runTail(int linesNum, char* filename) {
     if(charIndex != 0) // Last line is valid line
         lines[lineIndex * MAX_LINE_LEN + charIndex] = '\0';
     else { // Last line is only EOF
-        lineIndex--;
+        lineIndex--; // Getting back one line
         if(lineIndex == -1)
             lineIndex = linesNum - 1;
     }
@@ -125,5 +127,42 @@ int runTail(int linesNum, char* filename) {
 
     fclose(file);
     free(lines);
+    return EXIT_SUCCESS;
+}
+
+int runToEndTail(int startFrom, char *filename) {
+    bool overflowMsg = false; // Variable indicates if overflow msg was alread written
+    FILE* file = fopen(filename, "r");
+
+    //Checking if file was opened
+    if(file == NULL) {
+        fprintf(stderr, "Nepodarilo se otevrit soubor\n");
+        return EXIT_FAILURE;
+    }
+
+    int lineIndex = 0;
+    int charIndex= 0;
+    int c;
+    while((c = getc(file)) != EOF) {
+        if(lineIndex >= startFrom - 1)
+            putc((char)c, stdout); // Storing current character
+
+        if(c == '\n' || charIndex == MAX_LINE_LEN - 2) { // Newline character or overflow
+            if(charIndex == MAX_LINE_LEN - 2 && c != '\n') { // Overflow
+                if(!overflowMsg) {
+                    fprintf(stderr, "Nepodarilo se nacist cely soubor\n");
+                    overflowMsg = true;
+                }
+                putc('\n', stdout);
+            }
+            lineIndex++;
+            charIndex = 0;
+        }
+        else { // Normal character
+            charIndex++;
+        }
+    }
+
+    fclose(file);
     return EXIT_SUCCESS;
 }
