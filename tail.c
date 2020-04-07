@@ -71,13 +71,19 @@ int processArguments(int argc, char** argv, int* linesNum, char** filename, int*
 int runTail(int linesNum, char* filename) {
     bool overflowMsg = false; // Variable indicates if overflow msg was alread written
     char* lines = malloc(sizeof(char*) * linesNum * MAX_LINE_LEN); // Allocation of dynamic array of static arrays
-    FILE* file = fopen(filename, "r");
+    FILE* file;
 
-    //Checking if file was opened
-    if(file == NULL) {
-        fprintf(stderr, "Nepodarilo se otevrit soubor\n");
-        free(lines);
-        return EXIT_FAILURE;
+    if(filename == NULL) // Using stdin
+        file = stdin;
+    else { // Using file
+        file = fopen(filename, "r");
+
+        //Checking if file was opened
+        if(file == NULL) {
+            fprintf(stderr, "Nepodarilo se otevrit soubor\n");
+            free(lines);
+            return EXIT_FAILURE;
+        }
     }
 
     int lineIndex = 0;
@@ -124,20 +130,26 @@ int runTail(int linesNum, char* filename) {
     for(int i = 0; i <= lineIndex; i++)
         printf("%s", &lines[i * MAX_LINE_LEN]);
 
-
-    fclose(file);
+    if(filename != NULL)
+        fclose(file);
     free(lines);
     return EXIT_SUCCESS;
 }
 
 int runToEndTail(int startFrom, char *filename) {
     bool overflowMsg = false; // Variable indicates if overflow msg was alread written
-    FILE* file = fopen(filename, "r");
+    FILE* file;
 
-    //Checking if file was opened
-    if(file == NULL) {
-        fprintf(stderr, "Nepodarilo se otevrit soubor\n");
-        return EXIT_FAILURE;
+    if(filename == NULL) // Using stdin
+        file = stdin;
+    else { // Using file
+        file = fopen(filename, "r");
+
+        //Checking if file was opened
+        if(file == NULL) {
+            fprintf(stderr, "Nepodarilo se otevrit soubor\n");
+            return EXIT_FAILURE;
+        }
     }
 
     int lineIndex = 0;
@@ -163,6 +175,7 @@ int runToEndTail(int startFrom, char *filename) {
         }
     }
 
-    fclose(file);
+    if(filename != NULL)
+        fclose(file);
     return EXIT_SUCCESS;
 }
