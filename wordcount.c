@@ -5,23 +5,14 @@ int main() {
     htab_t* table = htab_init(10000);
 
     strcpy(word, "prdel");
-    htab_lookup_add(table, word);
-
-    strcpy(word, "joo");
-    htab_lookup_add(table, word);
-
-    strcpy(word, "hej");
-    htab_lookup_add(table, word);
-
-    htab_iterator_t hejIterator = htab_find(table, "hej");
-    htab_iterator_set_value(hejIterator, 5);
-
-    htab_iterator_t iterator = htab_find(table, "joo");
-    htab_iterator_t iterator2 = htab_find(table, "hej");
-    htab_value_t value = htab_iterator_get_value(iterator);
-    htab_value_t value2 = htab_iterator_get_value(iterator2);
-
-    printf("%i %i\n", value, value2);
+    htab_iterator_t it = htab_lookup_add(table, word);
+    htab_iterator_set_value(it, 20);
+    htab_value_t value = htab_iterator_get_value(it);
+    printf("1: %i\n", value);
+    htab_erase(table, it);
+    it = htab_lookup_add(table, word);
+    value = htab_iterator_get_value(it);
+    printf("2: %i\n", value);
 
     return 0;
 }

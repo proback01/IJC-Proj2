@@ -42,6 +42,8 @@ htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
     item->data = 1;
     item->next = NULL;
 
+    t->size++; // Increment number of items in htab
+
     //Adding item to linear list
     if(prevItem == NULL) // First item in list
         t->items[index] = item;
