@@ -16,7 +16,7 @@ wordcount: wordcount.o libhtab.a
 wordcount.o: wordcount.c
 	$(CC) $(CFLAGS) -c wordcount.c
 
-libhtab.a: htab_bucket_count.o htab_clear.o htab_find.o htab_free.o htab_hash_fun.o htab_init.o htab_lookup_add.o htab_size.o
+libhtab.a: htab_bucket_count.o htab_clear.o htab_find.o htab_free.o htab_hash_fun.o htab_init.o htab_lookup_add.o htab_size.o htab_iterator_get_value.o htab_end.o htab_iterator_set_value.o
 	ar rcs $@ $^
 
 htab_bucket_count.o: htab_bucket_count.c htab.h structs_dec.h
@@ -42,3 +42,13 @@ htab_lookup_add.o: htab_lookup_add.c htab.h structs_dec.h
 
 htab_size.o: htab_size.c htab.h structs_dec.h
 	$(CC) $(CFLAGS) -fPIC -c htab_size.c
+
+htab_iterator_get_value.o: htab_iterator_get_value.c htab.h structs_dec.h
+	$(CC) $(CFLAGS) -fPIC -c htab_iterator_get_value.c
+
+htab_end.o: htab_end.c htab.h structs_dec.h
+	$(CC) $(CFLAGS) -fPIC -c htab_end.c
+
+htab_iterator_set_value.o: htab_iterator_set_value.c htab.h structs_dec.h
+	$(CC) $(CFLAGS) -fPIC -c htab_iterator_set_value.c
+

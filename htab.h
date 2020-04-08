@@ -8,13 +8,15 @@
 #include <string.h>     // size_t
 #include <stdbool.h>    // bool
 #include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
 
 // Tabulka:
 struct htab;    // neúplná deklarace struktury - uživatel nevidí obsah
 typedef struct htab htab_t;     // typedef podle zadání
 
 // Typy:
-typedef const char * htab_key_t;        // typ klíče
+typedef char * htab_key_t;        // typ klíče
 typedef int htab_value_t;               // typ hodnoty
 
 // Iterátor do tabulky:
@@ -47,7 +49,7 @@ htab_iterator_t htab_end(const htab_t * t);     // iterátor _za_ poslední záz
 htab_iterator_t htab_iterator_next(htab_iterator_t it); // iterátor++
 
 // test: iterátor != end()
-inline bool htab_iterator_valid(htab_iterator_t it) { return it.ptr!=NULL; }
+static inline bool htab_iterator_valid(htab_iterator_t it) { return it.ptr!=NULL; }
 // test: iterátor1 == iterátor2
 inline bool htab_iterator_equal(htab_iterator_t it1, htab_iterator_t it2) {
     return it1.ptr==it2.ptr && it1.t == it2.t;
