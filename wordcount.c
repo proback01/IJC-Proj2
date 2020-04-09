@@ -1,18 +1,26 @@
 #include "htab.h"
+#include "structs_dec.h"
+#include "io.h"
 #include <stdio.h>
-int main() {
-    char *word = malloc(100);
-    htab_t* table = htab_init(10000);
 
-    strcpy(word, "prdel");
-    htab_iterator_t it = htab_lookup_add(table, word);
-    htab_iterator_set_value(it, 20);
-    htab_value_t value = htab_iterator_get_value(it);
-    printf("1: %i\n", value);
-    htab_erase(table, it);
-    it = htab_lookup_add(table, word);
-    value = htab_iterator_get_value(it);
-    printf("2: %i\n", value);
+#define BUCKET_SIZE 5000
+#define MAX_WORD_SIZE 127
+
+int main() {
+    htab_t* m = htab_init(BUCKET_SIZE);
+    char* word = malloc(sizeof(char) * (MAX_WORD_SIZE + 1));
+    htab_iterator_t it;
+    htab_value_t value;
+
+    while(get_word(word,MAX_WORD_SIZE, stdin) != EOF) {
+        it = htab_lookup_add(m, word);
+        value = htab_iterator_get_value(it);
+        htab_iterator_set_value(it, ++value);
+    }
+
+    //Iterating over htab
+    for(htab_iterator_t it = htab_begin(m); !htab_iterator_equal(it, htab_end(m)); it = htab_iterator_next(it))
+        printf("%s\t%i\n", htab_iterator_get_key(it), htab_iterator_get_value(it));
 
     return 0;
 }

@@ -51,9 +51,11 @@ htab_iterator_t htab_iterator_next(htab_iterator_t it); // iterátor++
 // test: iterátor != end()
 static inline bool htab_iterator_valid(htab_iterator_t it) { return it.ptr!=NULL; }
 // test: iterátor1 == iterátor2
-inline bool htab_iterator_equal(htab_iterator_t it1, htab_iterator_t it2) {
+
+static inline bool htab_iterator_equal(htab_iterator_t it1, htab_iterator_t it2) { // TODO Vyresit inline
     return it1.ptr==it2.ptr && it1.t == it2.t;
 }
+
 
 // čtení a zápis přes iterátor
 htab_key_t htab_iterator_get_key(htab_iterator_t it);

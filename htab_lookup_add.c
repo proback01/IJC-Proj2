@@ -39,7 +39,7 @@ htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
     item = malloc(sizeof(struct htab_item));
     item->key = malloc(sizeof(char) * (strlen(key) + 1));
     strcpy(item->key, key);
-    item->data = 1;
+    item->data = 0;
     item->next = NULL;
 
     t->size++; // Increment number of items in htab
