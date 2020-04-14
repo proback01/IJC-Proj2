@@ -22,6 +22,9 @@ int main(int argc, char** argv) {
     if(processArguments(argc, argv, &linesNum, &filename, &mode) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
+    if(linesNum < 0)
+        linesNum  *= -1;
+
 
     if(mode == DEFAULT_MODE)
         runTail(linesNum, filename);
