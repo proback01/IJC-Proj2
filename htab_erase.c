@@ -1,3 +1,9 @@
+// htab_erase.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Funkce vymaze z tabulky prvek na ktery ukazuje dany iterator
+
 #include "htab.h"
 #include "structs_dec.h"
 

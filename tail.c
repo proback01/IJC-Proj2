@@ -1,3 +1,9 @@
+// tail.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Soubor obsahuje program tail, ktery se chova stejne jako POSIX utilita tail
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

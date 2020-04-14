@@ -1,6 +1,8 @@
-/**
- * Funkce nastavuje hodnotu polozky z tabulky, urcene iteratorem
- */
+// htab_iterator_set_key.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Funkce nastavuje hodnotu prvku, na ktery ukazuje dany iterator na danou hodnotu
 
 #include "htab.h"
 #include "structs_dec.h"

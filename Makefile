@@ -1,6 +1,6 @@
-# Projekt: Proj1 IJC
-# Autor: Vojtech Maslan
-# Datum: 24.2.2020
+# Makefile
+# Řešení IJC-DU2, příklad b), 14.4.2020
+# Autor: Vojtech Maslan, FIT
 
 CC=gcc
 CFLAGS= -std=c99 -pedantic -Wall -Wextra 

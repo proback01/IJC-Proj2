@@ -1,19 +1,21 @@
-/**
- * Funkce hleda v hash table zaznam s danym, klicem
- * Pokud najde vraci iterator na zaznam
- * Pokud nenajde vytvari zaznam a vraci iterator na zaznam
- */
-
+// htab_lookup_add.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Funkce hleda v hash table zaznam s danym, klicem
+// Pokud najde vraci iterator na zaznam
+// Pokud nenajde vytvari zaznam a vraci iterator na zaznam
 
 #include "htab.h"
 #include "structs_dec.h"
 
 htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
     struct htab_iterator result;
-    // Calculating index of linear list
+    // Calculating index of linear list where should item with given key be
     size_t index = htab_hash_fun(key) % t->arr_size;
 
-    struct htab_item* item = t->items[index]; // First item in linear list
+    // First item in linear list
+    struct htab_item* item = t->items[index];
 
     struct htab_item* prevItem = item;
     // Finding in linear list key equal to given key in argument
@@ -27,7 +29,8 @@ htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
         // Keys are not same, moving to another item in list
         item = item->next;
     }
-    // Item with given key was found
+
+    // Item with given key was found, returning this item
     if(item != NULL) {
         result.ptr = item;
         result.t = t;
@@ -35,7 +38,7 @@ htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
         return result;
     }
 
-    // Item wasn't found, creating new item
+    // Item wasn't found, creating new item and returning this item
     item = malloc(sizeof(struct htab_item));
     item->key = malloc(sizeof(char) * (strlen(key) + 1));
     strcpy(item->key, key);

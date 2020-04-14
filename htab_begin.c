@@ -1,3 +1,9 @@
+// htab_begin.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Funkce vraci iterator na prvni prvek tabulky
+
 #include "htab.h"
 #include "structs_dec.h"
 

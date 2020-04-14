@@ -1,3 +1,9 @@
+// io.c
+// Řešení IJC-DU2, příklad b), 14.4.2020
+// Autor: Vojtech Maslan, FIT
+// Přeloženo: gcc 7.5
+// Soubor obsahuje funkci get_word, ktera nacita vzdy jedno slovo z daneho file streamu
+
 #include "io.h"
 
 int get_word(char *s, int max, FILE *f) {
