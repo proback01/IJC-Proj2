@@ -40,7 +40,12 @@ htab_iterator_t htab_lookup_add(htab_t *t, htab_key_t key) {
 
     // Item wasn't found, creating new item and returning this item
     item = malloc(sizeof(struct htab_item));
+    if(item == NULL)
+        return htab_end(t);
     item->key = malloc(sizeof(char) * (strlen(key) + 1));
+    if(item->key == NULL)
+        return htab_end(t);
+
     strcpy(item->key, key);
     item->data = 0;
     item->next = NULL;
