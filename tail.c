@@ -30,6 +30,8 @@ int main(int argc, char** argv) {
 
     if(linesNum < 0)
         linesNum  *= -1;
+    else if(linesNum == 0)
+        return EXIT_SUCCESS;
 
 
     if(mode == DEFAULT_MODE)

@@ -14,6 +14,8 @@ void htab_clear(htab_t* table) {
 
         while(current != NULL) {
             temp = current->next;
+
+            free(current->key);
             free(current);
             current=temp;
         }
