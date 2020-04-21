@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define BUCKET_SIZE 5000
+// Nasel jsem si poslednich 10 knih v anglictine na gutenberg.org a zprumeroval pocet unikatnich slov v techto knihach (15177) a nasel k tomuto cislu nejblizsi prvocislo.
+#define BUCKET_SIZE 15173
 #define MAX_WORD_SIZE 127
 
 int main() {
